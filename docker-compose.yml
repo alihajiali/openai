@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
   yaom_saeid:
-    image: ghcr.io/username/repo:latest
-    container_name: repo
+    image: ghcr.io/alihajiali/openai:latest
+    container_name: openai
     ports:
       - "8000:8000"
     restart: always
