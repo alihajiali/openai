@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  yaom_saeid:
+    image: ghcr.io/username/repo:latest
+    container_name: repo
+    ports:
+      - "8000:8000"
+    restart: always
+    environment:
+      - SQL_URL=
+      - PREFIX=
+      - PORT=8000
+      - RUNNING_MODE=
+      - SECRET_KEY=
+      - JWT_EXPIRE_TIME=
+      - DEV_USERNAME=
+      - DEV_JWT=
+      - SWAGGER_USERNAME=
+      - SWAGGER_PASSWORD=
+      - OPENAI_API_KEY=
+      - OPENAI_API_BASE=
