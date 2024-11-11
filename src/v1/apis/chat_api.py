@@ -3,6 +3,7 @@ import datetime, pytz, openai, os
 from typing import Literal
 from ..schemas import ChatModel
 from ..models import Chat
+import requests
 
 router = APIRouter(
     prefix="/v1/chat",
@@ -20,3 +21,11 @@ async def main(data:ChatModel):
     )['choices'][0]['message']['content']
     await Chat.create(message=data.message, response=response, model=data.model)
     return response
+
+
+@router.post("/gemini")
+async def gemini(data:ChatModel):
+    headers = {'Content-Type': 'application/json'}
+    params = {'key': 'AIzaSyBRcAVfNZJZcSuOLndUyXEbuWC6_QYMFe8'}
+    json_data = {'contents': [{'parts': [{'text': 'دمای هوای قم در ۷ روز آینده'}]}]}
+    return requests.post('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent',params=params,headers=headers,json=json_data).json()["candidates"][0]["content"]["parts"][0]["text"]
