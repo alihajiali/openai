@@ -24,7 +24,7 @@ async def main(data:ChatModel):
 
 
 @router.post("/gemini")
-async def gemini(data:ChatModel):
+async def gemini(data:GeminiChatModel):
     headers = {'Content-Type': 'application/json'}
     params = {'key': 'AIzaSyBRcAVfNZJZcSuOLndUyXEbuWC6_QYMFe8'}
     json_data = {'contents': [{'parts': [{'text': data.message}]}]}
