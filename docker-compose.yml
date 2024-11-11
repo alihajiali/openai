@@ -20,5 +20,3 @@ services:
       - SWAGGER_PASSWORD=
       - OPENAI_API_KEY=
       - OPENAI_API_BASE=
-    dns:
-      - 10.202.10.202
