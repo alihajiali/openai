@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 import datetime, pytz, openai, os
 from typing import Literal
-from ..schemas import ChatModel
+from ..schemas import *
 from ..models import Chat
 import requests
 
