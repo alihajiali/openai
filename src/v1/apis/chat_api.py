@@ -27,5 +27,5 @@ async def main(data:ChatModel):
 async def gemini(data:ChatModel):
     headers = {'Content-Type': 'application/json'}
     params = {'key': 'AIzaSyBRcAVfNZJZcSuOLndUyXEbuWC6_QYMFe8'}
-    json_data = {'contents': [{'parts': [{'text': 'دمای هوای قم در ۷ روز آینده'}]}]}
+    json_data = {'contents': [{'parts': [{'text': data.message}]}]}
     return requests.post('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent',params=params,headers=headers,json=json_data).json()["candidates"][0]["content"]["parts"][0]["text"]
