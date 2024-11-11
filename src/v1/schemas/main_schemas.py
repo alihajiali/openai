@@ -4,4 +4,8 @@ from typing import Optional
 
 class ChatModel(BaseModel):
     message:str=""
-    model:str="gpt-3.5-turbo"
+    model:str="gpt-4o-mini"
+
+
+class GeminiChatModel(BaseModel):
+    message:str=""
