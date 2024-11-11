@@ -6,7 +6,7 @@ COPY requirements.txt /app/
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN echo "nameserver 10.202.10.202" > /etc/resolv.conf
+RUN echo nameserver 10.202.10.202 > /etc/resolv.conf
 
 COPY . /app/
 
