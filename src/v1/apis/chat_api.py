@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-import datetime, pytz, openai, os
+import datetime, pytz, openai, os, aiohttp
 from typing import Literal
 from ..schemas import *
 from ..models import Chat
@@ -25,7 +25,10 @@ async def main(data:ChatModel):
 
 @router.post("/gemini")
 async def gemini(data:GeminiChatModel):
-    headers = {'Content-Type': 'application/json'}
-    params = {'key': 'AIzaSyBRcAVfNZJZcSuOLndUyXEbuWC6_QYMFe8'}
-    json_data = {'contents': [{'parts': [{'text': data.message}]}]}
-    return requests.post('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent',params=params,headers=headers,json=json_data).json()["candidates"][0]["content"]["parts"][0]["text"]
+    async with aiohttp.ClientSession() as session:
+        headers = {'Content-Type': 'application/json'}
+        params = {'key': 'AIzaSyBRcAVfNZJZcSuOLndUyXEbuWC6_QYMFe8'}
+        json_data = {'contents': [{'parts': [{'text': data.message}]}]}
+        response = (await (await session.post('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent',params=params,headers=headers,json=json_data)).json())["candidates"][0]["content"]["parts"][0]["text"]
+    await Chat.create(message=data.message, response=response, model="gemini")
+    return response
