@@ -27,7 +27,7 @@ async def main(data:ChatModel):
 async def gemini(data:GeminiChatModel):
     async with aiohttp.ClientSession() as session:
         headers = {'Content-Type': 'application/json'}
-        params = {'key': 'AIzaSyBRcAVfNZJZcSuOLndUyXEbuWC6_QYMFe8'}
+        params = {'key': os.getenv("GEMINI_API_KEY")}
         json_data = {'contents': [{'parts': [{'text': data.message}]}]}
         response = (await (await session.post('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent',params=params,headers=headers,json=json_data)).json())["candidates"][0]["content"]["parts"][0]["text"]
     await Chat.create(message=data.message, response=response, model="gemini")
