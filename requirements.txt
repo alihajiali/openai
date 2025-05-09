@@ -8,8 +8,10 @@ annotated-types==0.7.0
 anyio==4.6.2.post1
 attrs==24.2.0
 certifi==2024.8.30
+cffi==1.17.1
 charset-normalizer==3.4.0
 click==8.1.7
+cryptography==44.0.3
 dictdiffer==0.9.0
 fastapi==0.115.4
 frozenlist==1.5.0
@@ -21,6 +23,7 @@ multidict==6.1.0
 nanoid==2.0.0
 openai==0.28.0
 propcache==0.2.0
+pycparser==2.22
 pydantic==2.9.2
 pydantic_core==2.23.4
 PyJWT==2.9.0
@@ -43,4 +46,3 @@ uvloop==0.21.0
 watchfiles==0.24.0
 websockets==13.1
 yarl==1.17.1
-cryptography==41.0.7

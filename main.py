@@ -18,7 +18,7 @@ TORTOISE_ORM = {
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    asyncio.create_task(log_datetime())
+    # asyncio.create_task(log_datetime())
     await Tortoise.init(config=TORTOISE_ORM)
     await Tortoise.generate_schemas()
     yield
