@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  yaom_saeid:
+  openai:
     image: ghcr.io/alihajiali/openai:latest
     container_name: openai
     ports:
