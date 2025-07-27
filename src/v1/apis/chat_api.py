@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException
-import datetime, pytz, openai, os, aiohttp
+import datetime, pytz, os, aiohttp
+from openai import OpenAI
 from typing import Literal
 from ..schemas import *
 from ..models import Chat
@@ -13,12 +14,14 @@ router = APIRouter(
 
 @router.post("")
 async def main(data:ChatModel):
-    openai.api_key = os.getenv("OPENAI_API_KEY")
-    openai.api_base = os.getenv("OPENAI_API_BASE")
-    response = openai.ChatCompletion.create(
+    client = OpenAI(
+        api_key=os.getenv("OPENAI_API_KEY"),
+        base_url=os.getenv("OPENAI_API_BASE"),
+    )
+    response = client.responses.create(
         model=data.model,
-        messages=[{"role": "user", "content": data.message}]
-    )['choices'][0]['message']['content']
+        input=data.message
+    ).output[0].content[0].text
     await Chat.create(message=data.message, response=response, model=data.model)
     return response
 

@@ -15,6 +15,7 @@ prefix=os.getenv("PREFIX")
 
 def jwt_generator(username):
     return jwt.encode({"username":username, "expire":(time.time() + int(os.getenv("JWT_EXPIRE_TIME")))}, SECRET_KEY, algorithm="HS256")
+# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZXhwaXJlIjoyMDY5MDAwNTI4LjE5ODU2N30.L_JV39UhjHhimIprxrBEeCzdCXoLGg-BPVF9oRdBT1U
 
 def hash_saz(text):
     return hashlib.sha256(text.encode()).hexdigest()
@@ -41,8 +42,6 @@ def authorization(request: Request, HTTP_AUTHORIZATION:str = Header("Bearer toke
                     raise HTTPException(401, detail="not authenticate")
             if jwt_opened["expire"] < time.time():
                 raise HTTPException(401, detail="token is expire")
-        if "user_id" not in jwt_opened:
-            raise HTTPException(401, detail="jwt does not have user_id")
         new_header = MutableHeaders(request._headers)
         new_header["username"]=jwt_opened["username"]
         request._headers = new_header
